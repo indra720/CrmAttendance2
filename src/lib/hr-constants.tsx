@@ -1,0 +1,117 @@
+import {
+  LayoutGrid,
+  Users,
+  FilePlus,
+  AreaChart,
+  FolderKanban,
+  FileBarChart,
+  TrendingUp,
+  Clock,
+  Presentation,
+  MessageCircle,
+  Linkedin,
+  Facebook,
+  Globe,
+  Eye,
+  Check,
+  XCircle,
+  MapPin,
+  Phone,
+  FileUp,
+  DollarSign,
+  ListTodo,
+} from 'lucide-react';
+
+export const HR_SIDENAV_ITEMS = [
+  {
+    title: 'Dashboard',
+    path: '/hr-dashboard',
+    icon: <LayoutGrid className="h-5 w-5" />,
+  },
+  {
+    title: 'Employees',
+    path: '/hr-dashboard/employees',
+    icon: <Users className="h-5 w-5" />,
+    submenu: true,
+    subMenuItems: [
+      { title: 'All Employees', path: '/hr-dashboard/employees/all' },
+      { title: 'Onboarding', path: '/hr-dashboard/employees/onboarding' },
+      { title: 'ID Studio', path: '/hr-dashboard/employees/id-studio' },
+      { title: 'Asset Management', path: '/hr-dashboard/employees/assets' },
+    ],
+  },
+  {
+    title: 'Attendance',
+    path: '/hr-dashboard/attendance',
+    icon: <Clock className="h-5 w-5" />,
+    submenu: true,
+    subMenuItems: [
+      { title: 'Attendance List', path: '/hr-dashboard/attendance/list' },
+      { title: 'Attendance Calendar', path: '/hr-dashboard/attendance/calendar' },
+      { title: 'Activity Logs', path: '/hr-dashboard/attendance/logs' },
+      { title: 'Leave Requests', path: '/hr-dashboard/attendance/leave-requests' },
+      { title: 'Adjust Paid Leave', path: '/hr-dashboard/attendance/adjust-leave' },
+    ],
+  },
+  {
+    title: 'Manual Attendance',
+    path: '/hr-dashboard/manual-attendance',
+    icon: <ListTodo className="h-5 w-5" />,
+  },
+  {
+    title: 'Tasks & Workflows',
+    path: '/hr-dashboard/tasks',
+    icon: <FolderKanban className="h-5 w-5" />,
+    submenu: true,
+    subMenuItems: [
+      { title: 'Task Board', path: '/hr-dashboard/tasks/board' },
+      { title: 'Face Update Requests', path: '/hr-dashboard/tasks/face-updates' },
+    ],
+  },
+  {
+    title: 'Finance',
+    path: '/hr-dashboard/finance',
+    icon: <DollarSign className="h-5 w-5" />,
+    submenu: true,
+    subMenuItems: [
+      { title: 'Employee Salary', path: '/hr-dashboard/finance/salary' },
+      { title: 'Loan Requests', path: '/hr-dashboard/finance/loans' },
+      { title: 'Reimbursements', path: '/hr-dashboard/finance/reimbursements' },
+      { title: 'Payslips', path: '/hr-dashboard/finance/payslips' },
+    ],
+  },
+  {
+    title: 'Support',
+    path: '/hr-dashboard/support',
+    icon: <MessageCircle className="h-5 w-5" />,
+    submenu: true,
+    subMenuItems: [
+      { title: 'Support Tickets', path: '/hr-dashboard/support/tickets' },
+    ],
+  },
+  {
+    title: 'Company Settings',
+    path: '/hr-dashboard/settings',
+    icon: <FilePlus className="h-5 w-5" />,
+    submenu: true,
+    subMenuItems: [
+      { title: 'Holidays Calendar', path: '/hr-dashboard/settings/holidays' },
+      { title: 'Rules & Regulations', path: '/hr-dashboard/settings/rules' },
+    ],
+  },
+  {
+    title: 'Shift Management',
+    path: '/hr-dashboard/shifts',
+    icon: <Clock className="h-5 w-5" />,
+    submenu: true,
+    subMenuItems: [
+      { title: 'Custom Shifts', path: '/hr-dashboard/shifts/custom' },
+      { title: 'Shift Assignment', path: '/hr-dashboard/shifts/assignment' },
+    ],
+  },
+  {
+    title: 'My Profile',
+    path: '/hr-dashboard/profile',
+    icon: <Users className="h-5 w-5" />,
+  },
+];

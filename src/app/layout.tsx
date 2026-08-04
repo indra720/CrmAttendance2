@@ -1,0 +1,42 @@
+import type { Metadata } from 'next';
+import './globals.css';
+import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/components/theme-provider';
+import { SearchProvider } from '@/context/SearchContext';
+
+export const metadata: Metadata = {
+  title: 'NexusCRM',
+  description: 'A modern CRM for your business.',
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="font-body antialiased">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SearchProvider>
+            {children}
+          </SearchProvider>
+          <Toaster />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
