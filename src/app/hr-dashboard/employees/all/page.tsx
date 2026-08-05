@@ -24,18 +24,13 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { EditEmployeeDialog } from "@/components/forms/EditEmployeeDialog";
+import { AddEmployeeDialog } from "@/components/forms/AddEmployeeDialog";
 
 const allEmployees = [
   {
@@ -150,6 +145,9 @@ const allEmployees = [
 
 export default function AllEmployeesPage() {
   const [search, setSearch] = useState("");
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
   const router = useRouter();
 
   const filteredEmployees = allEmployees.filter(
@@ -157,6 +155,11 @@ export default function AllEmployeesPage() {
       emp.name.toLowerCase().includes(search.toLowerCase()) ||
       emp.email.toLowerCase().includes(search.toLowerCase()),
   );
+
+  const handleEdit = (emp: any) => {
+    setSelectedEmployee(emp);
+    setIsEditOpen(true);
+  };
 
   return (
     <div className="space-y-6">
@@ -167,21 +170,11 @@ export default function AllEmployeesPage() {
             Manage all employees in the system
           </p>
         </div>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" /> Add Employee
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>Add New Employee</DialogTitle>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <p>Form fields will be implemented here.</p>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <Button onClick={() => setIsAddOpen(true)}>
+          <Plus className="mr-1 h-4 w-4" />
+          <span className="md:hidden">Add</span>
+          <span className="hidden md:inline">Add Employee</span>
+        </Button>
       </div>
 
       <Card>
@@ -253,14 +246,12 @@ export default function AllEmployeesPage() {
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem
                             onClick={() =>
-                              router.push(
-                                `/hr-dashboard/Employees/AllEmployees/profile/${emp.id}`,
-                              )
+                              router.push(`/hr-dashboard/employees/${emp.id}`)
                             }
                           >
                             <Eye className="mr-2 h-4 w-4" /> View Details
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleEdit(emp)}>
                             <Edit className="mr-2 h-4 w-4" /> Edit
                           </DropdownMenuItem>
                           <DropdownMenuItem className="text-destructive">
@@ -276,6 +267,18 @@ export default function AllEmployeesPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Edit Profile Dialog */}
+      {selectedEmployee && (
+        <EditEmployeeDialog
+          open={isEditOpen}
+          onOpenChange={setIsEditOpen}
+          employee={selectedEmployee}
+        />
+      )}
+
+      {/* Add Employee Dialog */}
+      <AddEmployeeDialog open={isAddOpen} onOpenChange={setIsAddOpen} />
     </div>
   );
 }

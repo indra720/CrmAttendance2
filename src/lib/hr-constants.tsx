@@ -37,7 +37,7 @@ export const HR_SIDENAV_ITEMS = [
       { title: 'All Employees', path: '/hr-dashboard/employees/all' },
       { title: 'Onboarding', path: '/hr-dashboard/employees/onboarding' },
       { title: 'ID Studio', path: '/hr-dashboard/employees/id-studio' },
-      { title: 'Asset Management', path: '/hr-dashboard/employees/assets' },
+      { title: 'Asset Management', path: '/hr-dashboard/employees/manage-assets' },
     ],
   },
   {
