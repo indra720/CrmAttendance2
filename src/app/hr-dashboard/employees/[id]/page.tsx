@@ -95,44 +95,57 @@ export default function EmployeeProfilePage() {
   };
 
   return (
-    <div className="p-6 space-y-6 max-w-[1600px] mx-auto">
+    <div className="p-2 space-y-6 max-w-[1600px] mx-auto">
       {/* Header Profile Card */}
-      <Card className="border-none shadow-md bg-gradient-to-r from-background to-muted/30">
-        <CardContent className="p-6">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div className="flex items-center gap-4">
-              <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center border-4 border-background shadow-sm">
-                <User className="h-10 w-10 text-primary" />
+      <Card className="border-none shadow-lg bg-gradient-to-br from-primary/5 via-background to-background overflow-hidden relative">
+        <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
+        <CardContent className="p-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              {/* Profile Image Section */}
+              <div className="relative group">
+                <div className="h-28 w-28 rounded-full bg-gradient-to-tr from-primary/20 to-primary/40 flex items-center justify-center border-4 border-background shadow-inner overflow-hidden">
+                  <User className="h-14 w-14 text-primary/60" />
+                  {/* Placeholder for actual image: <img src="..." alt="Profile" className="h-full w-full object-cover" /> */}
+                </div>
+                <label className="absolute bottom-0 right-0 p-2 bg-primary text-primary-foreground rounded-full cursor-pointer shadow-lg hover:scale-110 transition-transform">
+                  <Edit className="h-4 w-4" />
+                  <input type="file" className="hidden" accept="image/*" onChange={(e) => console.log(e.target.files)} />
+                </label>
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h1 className="text-3xl font-bold">{employee.name}</h1>
-                  <Badge className="bg-green-500/10 text-green-500 hover:bg-green-500/20 border-green-500/20">
+
+              {/* Profile Details */}
+              <div className="text-center sm:text-left">
+                <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3">
+                  <h1 className="text-4xl font-extrabold tracking-tight">{employee.name}</h1>
+                  <Badge className="bg-green-500/10 text-green-600 hover:bg-green-500/20 border-green-500/20 px-3 py-1 text-sm font-semibold">
                     {employee.status}
                   </Badge>
                 </div>
-                <p className="text-muted-foreground flex items-center gap-1 mt-1">
-                  <Mail className="h-3 w-3" /> {employee.email}
+                <p className="text-lg text-muted-foreground flex items-center justify-center sm:justify-start gap-2 mt-2">
+                  <Mail className="h-4 w-4" /> {employee.email}
                 </p>
-                <div className="flex items-center gap-3 mt-2">
-                  <Badge variant="outline" className="flex items-center gap-1 font-normal text-xs">
-                    <ShieldCheck className="h-3 w-3 text-blue-500" /> Face Registered
-                  </Badge>
-                  <span className="text-xs text-muted-foreground flex items-center gap-1">
-                    <Calendar className="h-3 w-3" /> Joined {employee.joinedDate}
-                  </span>
+                <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4 mt-4">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background border shadow-sm text-sm font-medium">
+                    <ShieldCheck className="h-4 w-4 text-blue-500" /> Face Registered
+                  </div>
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background border shadow-sm text-sm font-medium">
+                    <Calendar className="h-4 w-4 text-muted-foreground" /> Joined {employee.joinedDate}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              <Button variant="outline" size="sm" className="gap-2">
-                <Edit className="h-4 w-4" /> Edit Employee
+            
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+              <Button size="lg" className="gap-2 shadow-md hover:shadow-lg transition-shadow">
+                <Edit className="h-4 w-4" /> Edit Profile
               </Button>
-              <Button variant="outline" size="sm" className="gap-2 text-destructive hover:text-destructive">
+              <Button variant="outline" size="lg" className="gap-2 border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground">
                 <Power className="h-4 w-4" /> Deactivate
               </Button>
-              <Button variant="secondary" size="sm" className="gap-2" onClick={() => router.push('/hr-dashboard/employees/all')}>
-                <ArrowLeft className="h-4 w-4" /> Back to List
+              <Button variant="secondary" size="lg" className="gap-2" onClick={() => router.push('/hr-dashboard/employees/all')}>
+                <ArrowLeft className="h-4 w-4" /> Back
               </Button>
             </div>
           </div>
@@ -143,28 +156,28 @@ export default function EmployeeProfilePage() {
         {/* Left Column - Detailed Info */}
         <div className="lg:col-span-2 space-y-6">
           {/* Personal Information */}
-          <Card>
-            <CardHeader className="pb-3">
+          <Card className="shadow-sm">
+            <CardHeader className="pb-3 border-b">
               <CardTitle className="text-lg flex items-center gap-2">
                 <User className="h-5 w-5 text-primary" /> Personal Information
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
+            <CardContent className="pt-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <InfoItem label="Full Name" value={employee.personalInfo.fullName} />
                 <InfoItem label="Email" value={employee.personalInfo.email} />
                 <InfoItem label="Phone" value={employee.personalInfo.phone} />
                 <InfoItem label="Aadhar Number" value={employee.personalInfo.aadhar} />
                 <InfoItem label="PAN Card" value={employee.personalInfo.pan} />
                 <InfoItem label="Staff Status" value={employee.personalInfo.staffStatus} />
-                <div className="md:col-span-2">
+                <div className="sm:col-span-2 lg:col-span-3">
                    <InfoItem 
                     label="Bank Account" 
                     value={`${employee.personalInfo.bankAccount}`} 
                     subValue={`IFSC: ${employee.personalInfo.ifsc}`}
                   />
                 </div>
-                <div className="md:col-span-2">
+                <div className="sm:col-span-2 lg:col-span-3">
                   <InfoItem label="Educational Qualifications" value={employee.personalInfo.education} />
                 </div>
               </div>
@@ -173,28 +186,28 @@ export default function EmployeeProfilePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Face Recognition & Account Status */}
-            <Card>
-              <CardHeader className="pb-3">
+            <Card className="shadow-sm">
+              <CardHeader className="pb-3 border-b">
                 <CardTitle className="text-lg flex items-center gap-2">
                   <ShieldCheck className="h-5 w-5 text-primary" /> Verification & Status
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between items-center p-3 rounded-lg bg-muted/30">
+              <CardContent className="space-y-4 pt-6">
+                <div className="flex justify-between items-center p-4 rounded-lg bg-muted/30 border">
                   <div>
                     <p className="text-sm font-medium">Face Recognition</p>
                     <p className="text-xs text-muted-foreground">Registered on: {employee.faceRecognition.date}</p>
                   </div>
                   <Badge className="bg-green-500 hover:bg-green-600">Registered</Badge>
                 </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-muted/30">
+                <div className="flex justify-between items-center p-4 rounded-lg bg-muted/30 border">
                   <div>
                     <p className="text-sm font-medium">Account Status</p>
                     <p className="text-xs text-muted-foreground">Login access enabled</p>
                   </div>
                   <Badge variant="secondary" className="bg-blue-500/10 text-blue-500">Active</Badge>
                 </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-muted/30">
+                <div className="flex justify-between items-center p-4 rounded-lg bg-muted/30 border">
                   <div>
                     <p className="text-sm font-medium">Monthly Salary (CTC)</p>
                   </div>
@@ -204,8 +217,8 @@ export default function EmployeeProfilePage() {
             </Card>
 
             {/* Compliance Documents */}
-            <Card>
-              <CardHeader className="pb-3">
+            <Card className="shadow-sm">
+              <CardHeader className="pb-3 border-b">
                 <CardTitle className="text-lg flex items-center gap-2">
                   <FileText className="h-5 w-5 text-primary" /> Compliance Documents
                 </CardTitle>
@@ -219,25 +232,25 @@ export default function EmployeeProfilePage() {
 
           {/* Address & Emergency Contact */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader className="pb-3">
+            <Card className="shadow-sm">
+              <CardHeader className="pb-3 border-b">
                 <CardTitle className="text-lg flex items-center gap-2">
                   <MapPin className="h-5 w-5 text-primary" /> Address Information
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 pt-6">
                 <InfoItem label="Current Address" value={employee.address.current} />
                 <Separator />
                 <InfoItem label="Permanent Address" value={employee.address.permanent} />
               </CardContent>
             </Card>
-            <Card>
-              <CardHeader className="pb-3">
+            <Card className="shadow-sm">
+              <CardHeader className="pb-3 border-b">
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Phone className="h-5 w-5 text-primary" /> Emergency Contact
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 pt-6">
                 <InfoItem label="Relative's Name" value={employee.emergencyContact.name} />
                 <InfoItem label="Relation" value={employee.emergencyContact.relation} />
                 <InfoItem label="Contact Number" value={employee.emergencyContact.phone} />
@@ -246,15 +259,15 @@ export default function EmployeeProfilePage() {
           </div>
 
           {/* Attendance History Table */}
-          <Card>
-            <CardHeader className="pb-3">
+          <Card className="shadow-sm">
+            <CardHeader className="pb-3 border-b">
               <CardTitle className="text-lg flex items-center gap-2">
                 <Activity className="h-5 w-5 text-primary" /> Recent Attendance History
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="rounded-md border">
-                <Table>
+            <CardContent className="pt-6">
+              <div className="rounded-md border overflow-x-auto">
+                <Table className="min-w-[600px]">
                   <TableHeader className="bg-muted/50">
                     <TableRow>
                       <TableHead>Date</TableHead>
