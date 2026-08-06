@@ -50,6 +50,7 @@ export const HR_SIDENAV_ITEMS = [
       { title: 'Attendance Calendar', path: '/hr-dashboard/attendance/calendar' },
       { title: 'Activity Logs', path: '/hr-dashboard/attendance/logs' },
       { title: 'Leave Requests', path: '/hr-dashboard/attendance/leave-requests' },
+      { title: 'Leave Type', path: '/hr-dashboard/attendance/leave-type' },
       { title: 'Adjust Paid Leave', path: '/hr-dashboard/attendance/adjust-leave' },
     ],
   },

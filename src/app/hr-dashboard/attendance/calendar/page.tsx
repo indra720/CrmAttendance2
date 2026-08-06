@@ -28,7 +28,7 @@ export default function AttendanceCalendarPage() {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   return (
-    <div className="p-4 sm:p-6 space-y-6">
+    <div className="p-2 space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -41,7 +41,7 @@ export default function AttendanceCalendarPage() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
         {stats.map((stat, i) => (
           <Card key={i} className="shadow-sm">
             <CardContent className="p-4 flex items-center gap-4">
