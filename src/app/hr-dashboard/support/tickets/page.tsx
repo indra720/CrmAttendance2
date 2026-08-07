@@ -65,42 +65,22 @@ export default function SupportTicketsPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {[
-          {
-            label: "Total",
-            value: "15",
-            icon: ListTodo,
-            color: "text-primary",
-          },
-          { label: "Open", value: "5", icon: Clock, color: "text-primary" },
-          {
-            label: "In Progress",
-            value: "3",
-            icon: LoaderCircle,
-            color: "text-yellow-600",
-          },
-          {
-            label: "Resolved",
-            value: "7",
-            icon: CheckCircle,
-            color: "text-green-600",
-          },
-          {
-            label: "Urgent",
-            value: "1",
-            icon: AlertCircle,
-            color: "text-red-600",
-          },
+          { label: "Total", value: "15", icon: ListTodo, color: "text-primary", bg: "bg-primary/10" },
+          { label: "Open", value: "5", icon: Clock, color: "text-primary", bg: "bg-primary/10" },
+          { label: "In Progress", value: "3", icon: LoaderCircle, color: "text-yellow-600", bg: "bg-yellow-500/10" },
+          { label: "Resolved", value: "7", icon: CheckCircle, color: "text-green-600", bg: "bg-green-500/10" },
+          { label: "Urgent", value: "1", icon: AlertCircle, color: "text-red-600", bg: "bg-red-500/10" },
         ].map((stat, i) => (
-          <Card key={i} className="text-center">
-            <CardContent className=" pt-6">
-              <stat.icon className={`mx-auto h-8 w-8 mb-2 ${stat.color}`} />
-              <div className="flex flex-row justify-center items-center gap-2 ">
+          <Card key={i}>
+            <CardContent className="p-4 flex items-center gap-4">
+              <div className={`p-3 rounded-lg ${stat.bg}`}>
+                <stat.icon className={`h-6 w-6 ${stat.color}`} />
+              </div>
+              <div>
                 <div className="text-2xl font-bold">{stat.value}</div>
-                <div className="text-xs text-muted-foreground uppercase">
-                  {stat.label}
-                </div>
+                <div className="text-xs text-muted-foreground uppercase">{stat.label}</div>
               </div>
             </CardContent>
           </Card>
@@ -113,7 +93,7 @@ export default function SupportTicketsPage() {
           <CardTitle>All Tickets</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
             <Select>
               <SelectTrigger>
                 <SelectValue placeholder="All Employees" />
