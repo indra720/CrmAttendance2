@@ -93,7 +93,7 @@ export default function TaskBoardPage() {
                                 <SelectContent>{statusOptions.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
                             </Select>
                         </div>
-                        <Button className="w-auto justify-end"><Plus className="mr-2 h-4 w-4" /> Create Task</Button>
+                        <Button className="w-auto"><Plus className="mr-2 h-4 w-4" /> Create Task</Button>
                     </CardContent>
                 </Card>
             </div>
