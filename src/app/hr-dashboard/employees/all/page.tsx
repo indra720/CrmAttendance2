@@ -10,6 +10,7 @@ import {
   Eye,
   Edit,
   Trash2,
+  Camera,
 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { EditEmployeeDialog } from "@/components/forms/EditEmployeeDialog";
 import { AddEmployeeDialog } from "@/components/forms/AddEmployeeDialog";
+import { FaceRegistrationDialog } from "../components/FaceRegistrationDialog";
 
 const allEmployees = [
   {
@@ -163,7 +165,7 @@ export default function AllEmployeesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">All Employees</h1>
           <p className="text-sm text-muted-foreground">
@@ -253,6 +255,9 @@ export default function AllEmployeesPage() {
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => handleEdit(emp)}>
                             <Edit className="mr-2 h-4 w-4" /> Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                            <FaceRegistrationDialog employeeName={emp.name} />
                           </DropdownMenuItem>
                           <DropdownMenuItem className="text-destructive">
                             <Trash2 className="mr-2 h-4 w-4" /> Deactivate

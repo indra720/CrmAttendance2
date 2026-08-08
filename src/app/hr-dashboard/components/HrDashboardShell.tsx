@@ -20,6 +20,7 @@ import {
   hrSidebarSections,
 } from "../data/mock-data";
 import AllEmployeesPage from "../employees/page";
+import { CameraCapture } from "@/components/ui/camera-capture";
 
 const statusStyles: Record<string, string> = {
   Present: "bg-success/10 text-success",
@@ -42,6 +43,16 @@ export function HrDashboardShell() {
   const [activeSection, setActiveSection] = useState("overview");
   const [search, setSearch] = useState("");
   const [dept, setDept] = useState("All Departments");
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [activeAction, setActiveAction] = useState<'Check-in' | 'Check-out' | null>(null);
+  const [lastAction, setLastAction] = useState<'Check-in' | 'Check-out' | null>(null);
+  const [timestamp, setTimestamp] = useState<string | null>(null);
+
+  const handleFaceVerified = () => {
+    setLastAction(activeAction);
+    setTimestamp(new Date().toLocaleTimeString());
+    setActiveAction(null);
+  };
 
   const departments = ["All Departments", "Engineering", "Design", "Sales", "HR", "Finance", "Marketing", "Support"];
 
@@ -276,6 +287,47 @@ export function HrDashboardShell() {
       </CardContent>
     </Card>
   );
+
+  const renderStaffAttendance = () => (
+    <Card className="max-w-lg mx-auto">
+      <CardHeader>
+        <CardTitle className="flex justify-between items-center">
+          Staff Attendance Simulation
+          <Button size="sm" variant={isRegistered ? "outline" : "default"} onClick={() => setIsRegistered(!isRegistered)}>
+            {isRegistered ? 'Registered' : 'Not Registered'}
+          </Button>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        {!isRegistered ? (
+          <div className="text-center py-8">
+            <p className="text-muted-foreground">Please register your face to use attendance.</p>
+          </div>
+        ) : activeAction ? (
+          <div className="space-y-4">
+            <h3 className="text-center font-medium">Verify Face for {activeAction}</h3>
+            <CameraCapture onCapture={handleFaceVerified} onClose={() => setActiveAction(null)} />
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="flex gap-4">
+              <Button className="flex-1" onClick={() => setActiveAction('Check-in')}>Check-in</Button>
+              <Button className="flex-1" variant="secondary" onClick={() => setActiveAction('Check-out')}>Check-out</Button>
+            </div>
+            {lastAction && (
+              <div className="text-center space-y-2 p-4 bg-muted rounded-lg">
+                <p className="text-sm text-muted-foreground">Last Action</p>
+                <div className="flex items-center justify-center gap-2">
+                  <Badge variant={lastAction === 'Check-in' ? 'default' : 'secondary'}>{lastAction}</Badge>
+                  <span className="text-sm font-medium">{timestamp}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
 // ... (at the top)
 
 
@@ -288,6 +340,7 @@ export function HrDashboardShell() {
       case "reports": return renderReports();
       case "settings": return renderSettings();
       case "employees": return <AllEmployeesPage />;
+      case "staff-attendance": return renderStaffAttendance();
       default: return renderOverview();
     }
   };
@@ -304,22 +357,24 @@ export function HrDashboardShell() {
         </Button>
       </div>
 
-      <nav className="flex items-center gap-2 overflow-x-auto pb-4  w-[90vw] md:w-full">
-        {hrSidebarSections.map((section) => {
-          const Icon = iconMap[section.icon as keyof typeof iconMap] ?? LayoutDashboard;
-          const isActive = activeSection === section.id;
-          return (
-            <button
-              key={section.id}
-              onClick={() => setActiveSection(section.id)}
-              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition whitespace-nowrap ${isActive ? "bg-primary text-primary-foreground" : "bg-card border hover:bg-muted"}`}
-            >
-              <Icon className="h-4 w-4 shrink-0" />
-              {section.label}
-            </button>
-          );
-        })}
-      </nav>
+      <div className="w-full overflow-hidden">
+        <nav className="flex items-center gap-2 overflow-x-auto pb-4 w-[300px] md:w-[700px] lg:w-[1000px] hide-scrollbar">
+          {hrSidebarSections.map((section) => {
+            const Icon = iconMap[section.icon as keyof typeof iconMap] ?? LayoutDashboard;
+            const isActive = activeSection === section.id;
+            return (
+              <button
+                key={section.id}
+                onClick={() => setActiveSection(section.id)}
+                className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition whitespace-nowrap ${isActive ? "bg-primary text-primary-foreground" : "bg-card border hover:bg-muted"}`}
+              >
+                <Icon className="h-4 w-4 shrink-0" />
+                {section.label}
+              </button>
+            );
+          })}
+        </nav>
+      </div>
 
       {renderContent()}
     </div>
