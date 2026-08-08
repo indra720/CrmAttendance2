@@ -4,6 +4,7 @@ export const hrSidebarSections = [
   { id: "attendance", label: "Attendance", icon: "Clock3" },
   { id: "leave", label: "Leave Requests", icon: "CalendarDays" },
   { id: "corrections", label: "Corrections", icon: "FileCheck2" },
+  { id: "staff-attendance", label: "Staff Attendance", icon: "Camera" },
   { id: "reports", label: "Reports", icon: "BarChart3" },
   { id: "settings", label: "Settings", icon: "Settings" },
 ];

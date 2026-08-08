@@ -15,7 +15,7 @@ const tabs = [
   { id: "leave", label: "Leave", path: "/staff/overview/leave" },
   { id: "attendance", label: "Attendance", path: "/staff/overview/attendance" },
   { id: "location", label: "Location", path: "/staff/overview/location" },
-  { id: "hr-dashboard", label: "HR Dashboard", path: "/staff/overview/hr-dashboard" },
+  // { id: "hr-dashboard", label: "HR Dashboard", path: "/staff/overview/hr-dashboard" },
 
 ];
 
